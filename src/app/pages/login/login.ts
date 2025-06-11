@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../../environments/environment';
 
 
 @Component({
@@ -22,12 +23,11 @@ export class Login {
     const payload = new URLSearchParams();
     payload.set('username', this.username);
     payload.set('password', this.password);
-
-    this.http.post('/api/auth/login', payload.toString(), {
+    this.http.post(`${environment.apiBaseUrl}`+'/api/auth/login', payload.toString(), {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       withCredentials: true
     }).subscribe({
-      next: () => this.router.navigate(['/dashboard']), // or wherever
+      next: () => this.router.navigate(['/somewhere']), // to be added an admin and user page
       error: (err) => alert('Login failed')
     });
   }
